@@ -1,0 +1,39 @@
+# Render Blueprint — deploys the Node.js backend
+# Connect this repo in Render and it will auto-configure the web service.
+# Set DATABASE_URL manually in the Render dashboard using your Supabase connection string.
+#
+# Supabase connection string format:
+#   postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:5432/postgres
+
+services:
+  - type: web
+    name: shrirammedical-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false   # Set this manually in Render dashboard (Supabase URL)
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: CORS_ORIGINS
+        value: https://shrirammedical.github.io
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: RATE_LIMIT_MAX
+        value: "100"
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: LOG_LEVEL
+        value: info

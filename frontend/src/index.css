@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 209 100% 40%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 209 100% 40%;
+    --radius: 0.625rem;
+    /* Sidebar vars — always dark */
+    --sidebar: 222 47% 9%;
+    --sidebar-border: 222 25% 15%;
+    --sidebar-foreground: 215 20% 65%;
+    --sidebar-muted: 222 30% 13%;
+    --sidebar-accent: 209 100% 40%;
+  }
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 210 20% 95%;
+    --card: 222 47% 10%;
+    --card-foreground: 210 20% 95%;
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 210 100% 56%;
+    --primary-foreground: 224 71.4% 4.1%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 14%;
+    --muted-foreground: 217.9 10.6% 55%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 17%;
+    --input: 215 27.9% 17%;
+    --ring: 210 100% 56%;
+    --sidebar: 222 47% 6%;
+    --sidebar-border: 222 25% 12%;
+    --sidebar-foreground: 215 20% 60%;
+    --sidebar-muted: 222 30% 9%;
+    --sidebar-accent: 210 100% 56%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  h1, h2, h3, h4, h5, h6 { @apply font-semibold tracking-tight; }
+}
+
+@layer components {
+  /* ── Stat / metric cards ── */
+  .stat-card {
+    @apply bg-card rounded-xl border border-border p-5 shadow-card
+           hover:shadow-card-hover hover:-translate-y-0.5
+           transition-all duration-200;
+  }
+  .kpi-card {
+    @apply bg-card rounded-xl border border-border p-4 shadow-card
+           hover:shadow-card-hover hover:-translate-y-0.5
+           transition-all duration-200 relative overflow-hidden;
+  }
+
+  /* ── Page layout helpers ── */
+  .page-header {
+    @apply flex items-center justify-between;
+  }
+  .page-title {
+    @apply text-2xl font-bold text-foreground tracking-tight;
+  }
+  .section-label {
+    @apply text-xs font-semibold text-muted-foreground uppercase tracking-widest;
+  }
+
+  /* ── Data table ── */
+  .data-table {
+    @apply w-full border-collapse;
+  }
+  .data-table th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-muted-foreground
+           uppercase tracking-wider bg-muted/40 border-b border-border;
+  }
+  .data-table td {
+    @apply px-4 py-3 text-sm text-foreground border-b border-border/60;
+  }
+  .data-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+  .data-table tbody tr {
+    @apply hover:bg-primary/[0.03] transition-colors duration-100;
+  }
+
+  /* ── Status badges ── */
+  .badge-status-paid {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold
+           bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200
+           dark:bg-emerald-900/20 dark:text-emerald-400 dark:ring-emerald-800;
+  }
+  .badge-status-partial {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold
+           bg-amber-50 text-amber-700 ring-1 ring-amber-200
+           dark:bg-amber-900/20 dark:text-amber-400 dark:ring-amber-800;
+  }
+  .badge-status-cancelled {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold
+           bg-rose-50 text-rose-700 ring-1 ring-rose-200
+           dark:bg-rose-900/20 dark:text-rose-400 dark:ring-rose-800;
+  }
+  .badge-status-draft {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold
+           bg-slate-100 text-slate-600 ring-1 ring-slate-200
+           dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-700;
+  }
+  .badge-status-received {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold
+           bg-sky-50 text-sky-700 ring-1 ring-sky-200
+           dark:bg-sky-900/20 dark:text-sky-400 dark:ring-sky-800;
+  }
+  .badge-status-ordered {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold
+           bg-violet-50 text-violet-700 ring-1 ring-violet-200
+           dark:bg-violet-900/20 dark:text-violet-400 dark:ring-violet-800;
+  }
+
+  /* ── Quick action button ── */
+  .quick-action-btn {
+    @apply flex flex-col items-center gap-2 p-4 rounded-xl bg-card border border-border
+           hover:bg-primary hover:text-primary-foreground hover:border-primary
+           hover:shadow-glow-sm hover:-translate-y-0.5
+           transition-all duration-200 cursor-pointer text-center;
+  }
+
+  /* ── Filter pill button ── */
+  .filter-pill {
+    @apply flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+           border border-border bg-card text-muted-foreground
+           hover:bg-muted hover:text-foreground transition-colors cursor-pointer;
+  }
+  .filter-pill-active {
+    @apply filter-pill bg-primary/10 text-primary border-primary/30 hover:bg-primary/15 hover:text-primary;
+  }
+
+  /* ── Icon bg helpers ── */
+  .icon-bg-green  { @apply bg-emerald-50 dark:bg-emerald-900/20; }
+  .icon-bg-blue   { @apply bg-sky-50 dark:bg-sky-900/20; }
+  .icon-bg-purple { @apply bg-violet-50 dark:bg-violet-900/20; }
+  .icon-bg-orange { @apply bg-orange-50 dark:bg-orange-900/20; }
+  .icon-bg-red    { @apply bg-rose-50 dark:bg-rose-900/20; }
+  .icon-bg-teal   { @apply bg-teal-50 dark:bg-teal-900/20; }
+  .icon-bg-indigo { @apply bg-indigo-50 dark:bg-indigo-900/20; }
+
+  /* ── Sidebar nav ── */
+  .sidebar-nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+           transition-all duration-150 text-sidebar-foreground
+           hover:bg-white/8 hover:text-white;
+  }
+  .sidebar-nav-item-active {
+    @apply bg-primary/15 text-primary border border-primary/20
+           hover:bg-primary/20 hover:text-primary;
+  }
+
+  /* ── Glass card ── */
+  .glass-card {
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/20
+           dark:border-white/10 rounded-xl shadow-soft;
+  }
+
+  /* ── Gradient heading ── */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-sky-400 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .text-balance { text-wrap: balance; }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 25%,
+      hsl(var(--muted-foreground) / 0.08) 50%,
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Subtle mesh background for main content */
+  .bg-mesh {
+    background-image:
+      radial-gradient(at 40% 20%, hsl(var(--primary) / 0.04) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, hsl(var(--primary) / 0.03) 0px, transparent 50%);
+  }
+}
+
+/* Print styles */
+@media print {
+  body * { visibility: hidden; }
+  .print-invoice, .print-invoice * { visibility: visible; }
+  .print-invoice { position: absolute; left: 0; top: 0; width: 100%; }
+  .no-print { display: none !important; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.4); }
